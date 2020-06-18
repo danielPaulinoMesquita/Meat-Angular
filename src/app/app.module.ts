@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID} from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule} from '@angular/router';
-
+import  {FormsModule} from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -18,6 +18,7 @@ import { CarrinhoComponent } from './restaurant-detail/carrinho/carrinho.compone
 import { MenuItemComponent } from './restaurant-detail/menu-item/menu-item.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { CarrinhoService } from './restaurant-detail/carrinho/carrinho.service';
+import { OrderComponent } from './order/order.component';
 
 
 @NgModule({
@@ -32,11 +33,13 @@ import { CarrinhoService } from './restaurant-detail/carrinho/carrinho.service';
     MenuComponent,
     CarrinhoComponent,
     MenuItemComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [RestaurantService, CarrinhoService, {provide: LOCALE_ID, useValue:'pt-BR'}],
