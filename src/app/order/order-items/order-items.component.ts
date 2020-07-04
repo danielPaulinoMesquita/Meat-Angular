@@ -7,7 +7,7 @@ import { CarrinhoItem } from 'app/restaurant-detail/carrinho/carrinho-item';
 })
 export class OrderItemsComponent implements OnInit {
 
-  @Input() items: CarrinhoItem[];
+  @Input() items: any[];
 
   @Output() increaseQty = new EventEmitter<CarrinhoItem>();
 
@@ -25,10 +25,10 @@ export class OrderItemsComponent implements OnInit {
   }
   
   emitDecreaseQty(item:CarrinhoItem){
-    this.increaseQty.emit(item);
+    this.decreaseQty.emit(item);
   }
 
   emitRemove(item:CarrinhoItem){
-    this.increaseQty.emit(item);
+    this.remove.emit(item);
   }
 }

@@ -25,7 +25,7 @@ export class CarrinhoComponent implements OnInit {
   }
 
   removeItem(item:any){
-    this.carrinhoService.remove(item);
+    this.carrinhoService.removeItem(item);
   }
 
   addItem(item:any){
