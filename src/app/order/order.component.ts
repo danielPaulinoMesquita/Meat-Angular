@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { RadioOption } from 'app/shared/radio/radio-option.model';
-import { OrderService } from './order.service';
-import { CarrinhoService } from 'app/restaurant-detail/carrinho/carrinho.service';
-import { CarrinhoItem } from 'app/restaurant-detail/carrinho/carrinho-item';
+import {Component, OnInit} from '@angular/core';
+import {RadioOption} from 'app/shared/radio/radio-option.model';
+import {OrderService} from './order.service';
+import {CarrinhoItem} from 'app/restaurant-detail/carrinho/carrinho-item';
+import {Order, OrderItem} from './order.model';
 
 @Component({
   selector: 'mt-order',
@@ -10,6 +10,7 @@ import { CarrinhoItem } from 'app/restaurant-detail/carrinho/carrinho-item';
 })
 export class OrderComponent implements OnInit {
 
+  // tslint:disable-next-line:comment-format
   //estamos mocando os dados, mas esse valor poderia ser buscado em algum banco
   delivery: number = 8;
 
@@ -19,7 +20,7 @@ export class OrderComponent implements OnInit {
     { label: 'Cartão de Refeição', value: 'REF' }
   ];
 
-  constructor(private orderService: OrderService) { 
+  constructor(private orderService: OrderService) {
   }
 
   ngOnInit() {
@@ -29,23 +30,34 @@ export class OrderComponent implements OnInit {
     return this.orderService.itemsValue();
   }
 
-  //itens que estão no carrinho
-  carItems():CarrinhoItem[]{
+  // itens que estão no carrinho
+  carItems(): CarrinhoItem[] {
     return this.orderService.carrinhoItens();
   }
 
   // aumentra a quantidade do iten em questão
-  increaseQty(item:CarrinhoItem){
+  increaseQty(item: CarrinhoItem) {
     this.orderService.increaseQty(item);
   }
 
   // diminui a quantidade do iten em questão
+  // tslint:disable-next-line:one-line
   decreaseQty(item: CarrinhoItem){
     this.orderService.decreaseQty(item);
   }
 
-  remove(item:CarrinhoItem){
+  remove(item: CarrinhoItem) {
     this.orderService.remove(item);
+  }
+
+  checkOrder(order: Order) {
+    order.orderItems = this.carItems()
+      .map((item: CarrinhoItem) => new  OrderItem(item.quantity, item.menuItem.id));
+    this.orderService.checkOrder(order).subscribe((orderId:string) => {
+      console.log(`Compra concluida: ${orderId}`);
+      this.orderService.clear();
+    });
+    console.log(order);
   }
 
 }
