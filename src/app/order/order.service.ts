@@ -16,11 +16,11 @@ export class OrderService{
         return this.carrinhoService.total();
     }
 
-    carrinhoItens():CarrinhoItem[]{
+    carrinhoItens(): CarrinhoItem[] {
         return this.carrinhoService.items;
     }
 
-    increaseQty(item:CarrinhoItem){
+    increaseQty(item: CarrinhoItem){
         this.carrinhoService.increaseQty(item);
     }
 
@@ -28,7 +28,7 @@ export class OrderService{
         this.carrinhoService.decreaseQty(item);
     }
 
-    remove(item: CarrinhoItem){
+    remove(item: CarrinhoItem) {
         this.carrinhoService.removeItem(item);
     }
 
@@ -43,6 +43,7 @@ export class OrderService{
       return this.http.post(`${MEAT_API}/orders`,
         JSON.stringify(order),
         new RequestOptions({headers: headers}))
-        .map(response => response.json());
+        .map(response => response.json())
+        .map(order => order.id);
   }
 }
