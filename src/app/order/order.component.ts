@@ -4,6 +4,7 @@ import {OrderService} from './order.service';
 import {CarrinhoItem} from 'app/restaurant-detail/carrinho/carrinho-item';
 import {Order, OrderItem} from './order.model';
 import {Router} from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -14,6 +15,8 @@ export class OrderComponent implements OnInit {
   // estamos mocando os dados, mas esse valor poderia ser buscado em algum banco
   delivery: number = 8;
 
+  orderForm: FormGroup;
+
   paymentOptions: RadioOption[] = [
     { label: 'Dinheiro', value: 'MONEY' },
     { label: 'Cartão de Debito', value: 'DEB' },
@@ -21,10 +24,19 @@ export class OrderComponent implements OnInit {
   ];
 
   constructor(private orderService: OrderService,
-              private router: Router ) {
+              private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.orderForm = this.formBuilder.group({
+      name: '',
+      email: this.formBuilder.control(''),
+      emailConfirmation: this.formBuilder.control(''),
+      address: this.formBuilder.control(''),
+      number: this.formBuilder.control(''),
+      optionalAddress: this.formBuilder.control(''),
+      paymentOption: this.formBuilder.control('')
+    });
   }
 
   itemsValue(): number {
