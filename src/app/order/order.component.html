@@ -17,6 +17,9 @@
         <div class="col-xs-12">
           <p class="lead"> Seus dados: </p>
         </div>
+        <div class="col-xs-12">
+          <span class="help-block pull-right has-error-block" *ngIf="orderForm.hasError('emailsNoMatch')"><i class="fa fa-remove">E-mails não conferem</i></span>
+        </div>
         <div class="col-sm-6 col-xs-12">
           <!-- class.has.sucess recebe um booleano (class.has.sucess aponta para a div com nome has-sucess)-->
           <mt-input-container errorMessage="Campo obrigatório e com 5 caracteres" label="Nome">
