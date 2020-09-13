@@ -4,13 +4,17 @@ import {OrderService} from './order.service';
 import {CarrinhoItem} from 'app/restaurant-detail/carrinho/carrinho-item';
 import {Order, OrderItem} from './order.model';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
   templateUrl: './order.component.html'
 })
 export class OrderComponent implements OnInit {
+
+  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+  numberPattern = /^[0-9]*$/;
 
   // estamos mocando os dados, mas esse valor poderia ser buscado em algum banco
   delivery: number = 8;
@@ -29,13 +33,13 @@ export class OrderComponent implements OnInit {
 
   ngOnInit() {
     this.orderForm = this.formBuilder.group({
-      name: '',
-      email: this.formBuilder.control(''),
-      emailConfirmation: this.formBuilder.control(''),
-      address: this.formBuilder.control(''),
-      number: this.formBuilder.control(''),
+      name: this.formBuilder.control('', [ Validators.required, Validators.minLength(5)]),
+      email: this.formBuilder.control('' , [Validators.required, Validators.pattern(this.emailPattern)]),
+      emailConfirmation: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      address: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
+      number: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       optionalAddress: this.formBuilder.control(''),
-      paymentOption: this.formBuilder.control('')
+      paymentOption: this.formBuilder.control('', [Validators.required])
     });
   }
 
@@ -66,7 +70,7 @@ export class OrderComponent implements OnInit {
   checkOrder(order: Order) {
     order.orderItems = this.carItems()
       .map((item: CarrinhoItem) => new  OrderItem(item.quantity, item.menuItem.id));
-    this.orderService.checkOrder(order).subscribe((orderId:string) => {
+    this.orderService.checkOrder(order).subscribe((orderId: string) => {
       this.router.navigate(['/order-summary']);
       console.log(`Compra concluida: ${orderId}`);
       this.orderService.clear();
