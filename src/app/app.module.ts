@@ -16,10 +16,7 @@ import { CarrinhoComponent } from './restaurant-detail/carrinho/carrinho.compone
 import { MenuItemComponent } from './restaurant-detail/menu-item/menu-item.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { CarrinhoService } from './restaurant-detail/carrinho/carrinho.service';
-import { OrderComponent } from './order/order.component';
-import { OrderItemsComponent } from './order/order-items/order-items.component';
 import { OrderService } from './order/order.service';
-import { DeliveryCostsComponent } from './order/delivery-costs/delivery-costs.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import {SharedModule} from './shared/shared.module';
 
@@ -36,9 +33,6 @@ import {SharedModule} from './shared/shared.module';
     CarrinhoComponent,
     MenuItemComponent,
     ReviewsComponent,
-    OrderComponent,
-    OrderItemsComponent,
-    DeliveryCostsComponent,
     OrderSummaryComponent
   ],
   imports: [
