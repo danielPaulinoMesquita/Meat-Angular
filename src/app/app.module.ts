@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID} from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { RouterModule} from '@angular/router';
+import {PreloadAllModules, RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -35,7 +35,7 @@ import {SharedModule} from './shared/shared.module';
     BrowserModule,
     HttpModule,
     FormsModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules}),
     ReactiveFormsModule,
     SharedModule.forRoot()
   ],
