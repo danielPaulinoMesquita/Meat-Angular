@@ -9,16 +9,14 @@ import { HomeComponent } from './home/home.component';
 import { ROUTES } from './app.routes';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { RestaurantComponent } from './restaurants/restaurant/restaurant.component';
-import { RestaurantService } from './restaurants/restaurant.service';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { MenuComponent } from './restaurant-detail/menu/menu.component';
 import { CarrinhoComponent } from './restaurant-detail/carrinho/carrinho.component';
 import { MenuItemComponent } from './restaurant-detail/menu-item/menu-item.component';
 import { ReviewsComponent } from './reviews/reviews.component';
-import { CarrinhoService } from './restaurant-detail/carrinho/carrinho.service';
-import { OrderService } from './order/order.service';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import {SharedModule} from './shared/shared.module';
+import {CoreModule} from './core/core.module';
 
 
 @NgModule({
@@ -41,9 +39,10 @@ import {SharedModule} from './shared/shared.module';
     FormsModule,
     RouterModule.forRoot(ROUTES),
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
-  providers: [RestaurantService, CarrinhoService, OrderService, {provide: LOCALE_ID, useValue: 'pt-BR'}],
+  providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
