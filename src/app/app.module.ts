@@ -16,6 +16,7 @@ import { MenuItemComponent } from './restaurant-detail/menu-item/menu-item.compo
 import { ReviewsComponent } from './reviews/reviews.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import {SharedModule} from './shared/shared.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {SharedModule} from './shared/shared.module';
     FormsModule,
     RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules}),
     ReactiveFormsModule,
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}],
   bootstrap: [AppComponent]
