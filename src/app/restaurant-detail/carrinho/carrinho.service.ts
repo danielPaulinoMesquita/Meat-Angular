@@ -1,11 +1,15 @@
 import { MenuItem } from "../menu-item/menu-item.model";
 import { CarrinhoItem } from "./carrinho-item";
 import { Injectable } from "@angular/core";
+import {NotificationService} from '../../messages/notification.service';
 
 @Injectable()
 export class CarrinhoService {
 
     items: CarrinhoItem[] = [];
+
+    constructor(private  notificationService: NotificationService) {
+    }
 
     clear() {
         this.items = [];
@@ -18,6 +22,8 @@ export class CarrinhoService {
         } else {
             this.items.push(new CarrinhoItem(item));
         }
+
+        this.notificationService.notify(`Você adicionou um item ${item.name}`);
     }
 
     //aumenta a quantidade
@@ -25,7 +31,7 @@ export class CarrinhoService {
         item.quantity = item.quantity + 1;
     }
 
-    //diminui a quantidade 
+    //diminui a quantidade
     decreaseQty(item: CarrinhoItem){
         item.quantity= item.quantity-1;
         if(item.quantity===0){
@@ -35,7 +41,9 @@ export class CarrinhoService {
 
     //remove o item
     removeItem(item: CarrinhoItem) {
-        this.items.splice(this.items.indexOf(item), 1)
+      this.items.splice(this.items.indexOf(item), 1);
+      this.notificationService.notify(`Você removeu um item ${item.menuItem.name}`);
+
     }
 
     total(): number {

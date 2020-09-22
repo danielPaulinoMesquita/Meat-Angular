@@ -8,6 +8,7 @@ import {CarrinhoService} from '../restaurant-detail/carrinho/carrinho.service';
 import {RestaurantService} from '../restaurants/restaurant.service';
 import {OrderService} from '../order/order.service';
 import {SnackbarComponent} from '../messages/snackbar/snackbar.component';
+import {NotificationService} from '../messages/notification.service';
 
 @NgModule({
   declarations: [InputComponent, RadioComponent, RatingComponent, SnackbarComponent],
@@ -19,7 +20,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers : [CarrinhoService, RestaurantService, OrderService]
+      providers : [CarrinhoService, RestaurantService, OrderService, NotificationService]
     };
   }
 }
