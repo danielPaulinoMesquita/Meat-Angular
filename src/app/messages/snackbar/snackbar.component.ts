@@ -3,6 +3,9 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {NotificationService} from '../notification.service';
 import {Observable} from 'rxjs';
 import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/switchMap';
+
 @Component({
   selector: 'mt-snackbar',
   templateUrl: './snackbar.component.html',
@@ -30,12 +33,16 @@ export class SnackbarComponent implements OnInit {
 
   constructor(private notificationService: NotificationService) { }
 
+  /**
+   * 'do' diferentemente do subscribe, ele executa no instante que chega a mensagem,
+   *  o subsribe ele espera o listenner dar a resposta
+   */
   ngOnInit() {
-    this.notificationService.notifier.subscribe(message => {
+    this.notificationService.notifier
+      .do(message => {
       this.message = message;
       this.snackVisibility = 'visible';
-      Observable.timer(3000).subscribe(timer => this.snackVisibility = 'hidden');
-    });
+    }).switchMap(message => Observable.timer(3000))
+      .subscribe( timer => this.snackVisibility = 'hidden');
   }
-
 }
