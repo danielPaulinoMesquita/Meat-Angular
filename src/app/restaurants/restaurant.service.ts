@@ -9,19 +9,18 @@ import {ErrorHandler} from '../app.error-handler';
 import { MenuItem } from "app/restaurant-detail/menu-item/menu-item.model";
 
 @Injectable()
-export class RestaurantService{
-   
-   constructor(private http: Http){
-    }
+export class RestaurantService {
+
+   constructor(private http: Http) {}
 
     //map e catch foi importado separadamente
-    restaurants(): Observable<Restaurant[]>{
-        return this.http.get(`${MEAT_API}/restaurants`)
+    restaurants(search?: string): Observable<Restaurant[]> {
+        return this.http.get(`${MEAT_API}/restaurants`, {params: {q: search}})
         .map(
           response => response.json()
         ).catch(
           ErrorHandler.handleError
-        )
+        );
     }
 
     restaurantById(id:string):Observable<Restaurant>{
@@ -36,9 +35,9 @@ export class RestaurantService{
       .catch(ErrorHandler.handleError)
     }
 
-    menuOfRestaurant(id:string):Observable<MenuItem[]>{
+    menuOfRestaurant(id: string): Observable<MenuItem[]> {
       return this.http.get(`${MEAT_API}/restaurants/${id}/menu`)
-      .map(response=>response.json())
-      .catch(ErrorHandler.handleError)
+      .map(response => response.json())
+      .catch(ErrorHandler.handleError);
     }
 }
