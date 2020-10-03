@@ -1,14 +1,17 @@
-import { Injectable } from "@angular/core";
-import { CarrinhoService } from "app/restaurant-detail/carrinho/carrinho.service";
-import { CarrinhoItem } from "app/restaurant-detail/carrinho/carrinho-item";
+import { Injectable } from '@angular/core';
+import { CarrinhoService } from 'app/restaurant-detail/carrinho/carrinho.service';
+import { CarrinhoItem } from 'app/restaurant-detail/carrinho/carrinho-item';
 import {Order} from './order.model';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MEAT_API} from '../app-api';
+import {LoginService} from '../security/login/login.service';
 
 @Injectable()
-export class OrderService{
-    constructor(private carrinhoService: CarrinhoService, private http: HttpClient) {
+export class OrderService {
+    constructor(private carrinhoService: CarrinhoService,
+                private http: HttpClient,
+                private loginService: LoginService) {
 
     }
 
@@ -20,11 +23,11 @@ export class OrderService{
         return this.carrinhoService.items;
     }
 
-    increaseQty(item: CarrinhoItem){
+    increaseQty(item: CarrinhoItem) {
         this.carrinhoService.increaseQty(item);
     }
 
-    decreaseQty(item: CarrinhoItem){
+    decreaseQty(item: CarrinhoItem) {
         this.carrinhoService.decreaseQty(item);
     }
 
@@ -37,7 +40,11 @@ export class OrderService{
     }
 
   checkOrder(order: Order): Observable<string> {
-     return this.http.post<Order>(`${MEAT_API}/orders`, order)
+      let headers = new HttpHeaders();
+      if (this.loginService.isLoggedIn()) {
+        headers = headers.set('Authorization', `Bearer ${this.loginService.user.acessToken}`)
+      }
+     return this.http.post<Order>(`${MEAT_API}/orders`, order, {headers: headers})
        .map( order => order.id);
   }
 }

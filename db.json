@@ -484,6 +484,22 @@
         }
       ],
       "id": 7
+    },
+    {
+      "name": "juliana",
+      "email": "juliana@gmail.com",
+      "emailConfirmation": "juliana@gmail.com",
+      "address": "Quadra 403 Conjunto 13",
+      "number": "23",
+      "optionalAddress": "tste",
+      "paymentOption": "MONEY",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "espreso"
+        }
+      ],
+      "id": 8
     }
   ]
 }
