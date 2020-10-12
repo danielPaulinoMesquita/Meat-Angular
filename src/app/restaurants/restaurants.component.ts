@@ -45,8 +45,7 @@ export class RestaurantsComponent implements OnInit {
     this.searchControl.valueChanges
       .debounceTime(500)
       .distinctUntilChanged()
-      .switchMap(searchTerm => this.restaurantService.restaurants(searchTerm)
-        .catch(error => Observable.from([])))
+      .switchMap(searchTerm => this.restaurantService.restaurants(searchTerm))
       .subscribe(restaurants => this.restaurants = restaurants);
     this.restaurantService.restaurants()
     .subscribe(restaurant => this.restaurants = restaurant);

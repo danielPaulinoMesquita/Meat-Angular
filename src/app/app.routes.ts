@@ -10,19 +10,19 @@ import {LoginComponent} from './security/login/login.component';
 import {LoggedInGuard} from './security/loggedin.guard';
 
 export const ROUTES: Routes = [
-    { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'login/:to', component: LoginComponent},
   { path: 'login', component: LoginComponent},
   { path: 'about', loadChildren: './about/about.module#AboutModule' },
-    { path: 'restaurant', component: RestaurantsComponent },
-    { path: 'restaurant-detail/:id', component: RestaurantDetailComponent,
-        children: [
-            { path: '', redirectTo: 'menu', pathMatch: 'full' },
-            { path: 'menu', component: MenuComponent },
-            { path: 'reviews', component: ReviewsComponent }
-        ]
-    },
-    { path: 'order', loadChildren: './order/order.module#OrderModule', canLoad: [LoggedInGuard], canActivate: [LoggedInGuard]},
-    { path: 'order-summary', component: OrderSummaryComponent},
-    { path: '**', component: NotFoundComponent}
+  { path: 'restaurant', component: RestaurantsComponent },
+  { path: 'restaurant-detail/:id', component: RestaurantDetailComponent,
+    children: [
+      { path: '', redirectTo: 'menu', pathMatch: 'full' },
+      { path: 'menu', component: MenuComponent },
+      { path: 'reviews', component: ReviewsComponent }
+    ]
+  },
+  { path: 'order', loadChildren: './order/order.module#OrderModule', canLoad: [LoggedInGuard], canActivate: [LoggedInGuard]},
+  { path: 'order-summary', component: OrderSummaryComponent},
+  { path: '**', component: NotFoundComponent}
 ];
